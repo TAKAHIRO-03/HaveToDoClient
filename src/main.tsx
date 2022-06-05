@@ -8,6 +8,7 @@ import Signin from "./routes/Signin";
 import Login from "./routes/Login";
 import PrivacyPolicy from "./routes/PrivacyPolicy";
 import Asct from "./routes/Asct";
+import NotFound from "./routes/NotFound";
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
@@ -19,6 +20,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
         <Route path="/login" element={<Login />} />
         <Route path="/pp" element={<PrivacyPolicy />} />
         <Route path="/asct" element={<Asct />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>
