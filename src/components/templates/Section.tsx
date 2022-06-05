@@ -1,5 +1,3 @@
-import React from "react";
-
 export default function Section(arg: { title: string, subtitle: string, dark: boolean, id: string }) {
   return (
     <div className={"section" + (arg.dark ? " section-dark" : "")}>
