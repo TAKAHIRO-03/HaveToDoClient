@@ -1,6 +1,16 @@
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
+import InputValue from "../parts/InputValue";
+import FormGroup from "../parts/FormGroup";
+import Button from "../parts/Button";
+import {
+  validateAcceptTerms,
+  validateConfirmEmail,
+  validateConfirmPassword,
+  validateEmail,
+  validatePassword,
+} from "../../util/ValidationUtil";
 
 type SignupForm = {
   email: string;
@@ -12,19 +22,11 @@ type SignupForm = {
 
 const SignupSection = () => {
   const validationSchema = Yup.object().shape({
-    email: Yup.string().required("Email is required").email("Email is invalid"),
-    confirmEmail: Yup.string()
-      .required("Confirm Email is required")
-      .email("Confirm Email is invalid")
-      .oneOf([Yup.ref("email"), null], "Confirm Email does not match"),
-    password: Yup.string()
-      .required("Password is required")
-      .min(6, "Password must be at least 6 characters")
-      .max(40, "Password must not exceed 40 characters"),
-    confirmPassword: Yup.string()
-      .required("Confirm Password is required")
-      .oneOf([Yup.ref("password"), null], "Confirm Password does not match"),
-    acceptTerms: Yup.bool().oneOf([true], "Accept Terms is required"),
+    email: validateEmail,
+    confirmEmail: validateConfirmEmail,
+    password: validatePassword,
+    confirmPassword: validateConfirmPassword,
+    acceptTerms: validateAcceptTerms,
   });
 
   const {
@@ -45,77 +47,85 @@ const SignupSection = () => {
       <div className="signup-title">アカウント登録</div>
       <div className="register-form">
         <form onSubmit={handleSubmit(onSubmit)}>
-          <div className="form-group">
-            <label>Email</label>
-            <input
+          <FormGroup errorMsg={errors.email?.message}>
+            <InputValue
+              label={{
+                text: "Email",
+              }}
               type="text"
-              {...register("email")}
               className={`form-control ${errors.email ? "is-invalid" : ""}`}
+              name="email"
+              register={register}
             />
-            <div className="invalid-feedback">{errors.email?.message}</div>
-          </div>
-          <div className="form-group">
-            <label>Confirm Email</label>
-            <input
+          </FormGroup>
+          <FormGroup errorMsg={errors.confirmEmail?.message}>
+            <InputValue
+              label={{
+                text: "Confirm Email",
+              }}
               type="text"
-              {...register("confirmEmail")}
               className={`form-control ${
                 errors.confirmEmail ? "is-invalid" : ""
               }`}
+              name="confirmEmail"
+              register={register}
             />
-            <div className="invalid-feedback">{errors.confirmEmail?.message}</div>
-          </div>
-          <div className="form-group">
-            <label>Password</label>
-            <input
+          </FormGroup>
+          <FormGroup errorMsg={errors.password?.message}>
+            <InputValue
+              label={{
+                text: "Password",
+              }}
               type="password"
-              {...register("password")}
               className={`form-control ${errors.password ? "is-invalid" : ""}`}
+              name="password"
+              register={register}
             />
-            <div className="invalid-feedback">{errors.password?.message}</div>
-          </div>
-          <div className="form-group">
-            <label>Confirm Password</label>
-            <input
+          </FormGroup>
+          <FormGroup errorMsg={errors.confirmPassword?.message}>
+            <InputValue
+              label={{
+                text: "Confirm Password",
+              }}
               type="password"
-              {...register("confirmPassword")}
               className={`form-control ${
                 errors.confirmPassword ? "is-invalid" : ""
               }`}
+              name="confirmPassword"
+              register={register}
             />
-            <div className="invalid-feedback">
-              {errors.confirmPassword?.message}
-            </div>
-          </div>
-
-          <div className="form-group form-check">
-            <input
+          </FormGroup>
+          <FormGroup
+            errorMsg={errors.acceptTerms?.message}
+            className="form-group form-check"
+          >
+            <InputValue
+              label={{
+                text: "I have read and agree to the Terms",
+                htmlFor: "acceptTerms",
+                className: "form-check-label",
+              }}
               type="checkbox"
-              {...register("acceptTerms")}
               className={`form-check-input ${
                 errors.acceptTerms ? "is-invalid" : ""
               }`}
+              name="acceptTerms"
+              register={register}
             />
-            <label htmlFor="acceptTerms" className="form-check-label">
-              I have read and agree to the Terms
-            </label>
-            <div className="invalid-feedback">
-              {errors.acceptTerms?.message}
-            </div>
-          </div>
-
-          <div className="form-group">
-            <button type="submit" className="btn btn-primary">
-              Register
-            </button>
-            <button
+          </FormGroup>
+          <FormGroup>
+            <Button
+              type="submit"
+              className="btn btn-primary"
+              btnName="Register"
+            />
+            <Button
               type="button"
               onClick={() => reset()}
               className="btn btn-warning float-right"
-            >
-              Reset
-            </button>
-          </div>
+              btnName="Reset"
+            />
+          </FormGroup>
         </form>
       </div>
     </div>
