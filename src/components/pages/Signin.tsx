@@ -1,11 +1,7 @@
-import { Link } from "react-router-dom";
+import SigninView from "../views/SigninView";
 
 export default function Singin() {
   return (
-    <main>
-      <h2>Singin</h2>
-      <p>テストテキストテストテキストテストテキスト</p>
-      <Link to="/">戻る</Link>
-    </main>
+    <SigninView />
   );
 }

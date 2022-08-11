@@ -5,6 +5,7 @@ import './index.css'
 import Home from './components/pages/Home'
 import Company from "./components/pages/Company";
 import Signin from "./components/pages/Signin";
+import Signup from "./components/pages/Signup";
 import Login from "./components/pages/Login";
 import PrivacyPolicy from "./components/pages/PrivacyPolicy";
 import Asct from "./components/pages/Asct";
@@ -17,6 +18,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
         <Route path="/" element={<Home />} />
         <Route path="/company" element={<Company />} />
         <Route path="/signin" element={<Signin />} />
+        <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
         <Route path="/pp" element={<PrivacyPolicy />} />
         <Route path="/asct" element={<Asct />} />

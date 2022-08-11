@@ -1,15 +1,15 @@
 import Footer from "../templates/Footer";
 import LogoLinkNavbar from "../templates/LogoLinkNavbar";
-import SigninSection from "../templates/SigninSection";
+import SignupSection from "../templates/SignupSection";
 
-const SigninView = () => {
+const SignupView = () => {
   return (
     <>
       <LogoLinkNavbar />
-      <SigninSection />
+      <SignupSection />
       <Footer />
     </>
   );
 };
 
-export default SigninView;
+export default SignupView;

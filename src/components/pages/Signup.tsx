@@ -1,11 +1,10 @@
 import { Link } from "react-router-dom";
+import SignupView from "../views/SignupView";
 
 export default function Signup() {
   return (
     <main>
-      <h2>Act on specified commercial transactions</h2>
-      <p>テストテキストテストテキストテストテキスト</p>
-      <Link to="/">戻る</Link>
+      <SignupView />
     </main>
   );
 }
