@@ -11,11 +11,21 @@ export const validateConfirmEmail = Yup.string()
 
 export const validatePassword = Yup.string()
   .required("Password is required")
-  .min(6, "Password must be at least 6 characters")
-  .max(40, "Password must not exceed 40 characters");
+  .min(8, "Password must be at least 8 characters")
+  .max(64, "Password must not exceed 64 characters")
+  .matches(
+    /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!-/:-@¥[-`{-~])[a-zA-Z0-9!-/:-@¥[-`{-~]+$/,
+    "Password must be at least one upper-case, lower-case, digit, special character"
+  );
 
 export const validateConfirmPassword = Yup.string()
   .required("Confirm Password is required")
+  .min(8, "Password must be at least 8 characters")
+  .max(64, "Password must not exceed 64 characters")
+  .matches(
+    /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!-/:-@¥[-`{-~])[a-zA-Z0-9!-/:-@¥[-`{-~]+$/,
+    "Password must be at least one upper-case, lower-case, digit, special character"
+  )
   .oneOf([Yup.ref("password"), null], "Confirm Password does not match");
 
 export const validateAcceptTerms = Yup.bool().oneOf(
