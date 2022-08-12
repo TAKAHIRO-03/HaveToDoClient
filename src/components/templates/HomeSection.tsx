@@ -14,18 +14,8 @@ const HomeSection = () => {
         <h1 className="text">{`覚悟を決める\nやると決めたらもう逃げない`}</h1>
         <ul>
           <li>
-            <Link to="/">
-              <span>Webアプリではじめる</span>
-            </Link>
-          </li>
-          <li>
-            <Link to="/">
-              <span>iOSアプリで始める</span>
-            </Link>
-          </li>
-          <li>
-            <Link to="/">
-              <span>Androidアプリで始める</span>
+            <Link to="/signup">
+              <span>はじめる</span>
             </Link>
           </li>
         </ul>

@@ -11,6 +11,15 @@ import {
   validateEmail,
   validatePassword,
 } from "../../util/ValidationUtil";
+import {
+  AccountRepository,
+  AccountRequest,
+} from "../../api/rest/AccountRepository";
+import { useContext } from "react";
+import axios from "axios";
+import { BaseResponse } from "../../api/rest/base/BaseResponse";
+import { DiConteinerContext } from "../../App";
+import { resolveDiConteinerContext } from "../../di/DiConteinerContextResolver";
 
 type SignupForm = {
   email: string;
@@ -38,8 +47,24 @@ const SignupSection = () => {
     resolver: yupResolver(validationSchema),
   });
 
+  const accountRepo: AccountRepository = resolveDiConteinerContext(
+    useContext(DiConteinerContext)
+  ).resolve("accountRepo");
+
   const onSubmit = (data: SignupForm) => {
-    console.log(JSON.stringify(data, null, 2)); //TODO
+    const req: AccountRequest = new AccountRequest(
+      data.email,
+      data.confirmEmail,
+      data.password,
+      data.confirmPassword,
+      data.acceptTerms
+    );
+
+    accountRepo.post(req).then((res) => {
+      if (axios.isAxiosError(res) || (res as BaseResponse).status !== 201) {
+        // TODO リダイレクトする
+      }
+    });
   };
 
   return (
