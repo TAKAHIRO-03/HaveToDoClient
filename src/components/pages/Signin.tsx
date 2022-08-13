@@ -1,7 +1,7 @@
 import SigninView from "../views/SigninView";
 
-export default function Singin() {
-  return (
-    <SigninView />
-  );
-}
+const Signin = () => {
+  return <SigninView />;
+};
+
+export default Signin;

@@ -1,9 +1,7 @@
 import HomeView from "../views/HomeView";
 
-export default function Home() {
-  return (
-    <main>
-      <HomeView />
-    </main>
-  );
-}
+const Home = () => {
+  return <HomeView />;
+};
+
+export default Home;

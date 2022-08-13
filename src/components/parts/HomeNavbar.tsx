@@ -1,6 +1,6 @@
 import ReactScroll, { animateScroll as scroll } from "react-scroll";
 import logo from "../../img/logo.svg";
-import NavItem from "../parts/NavItem";
+import NavItem from "./NavItem";
 
 const HomeNavbar = () => {
   const scrollToTop = () => {

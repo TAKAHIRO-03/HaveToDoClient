@@ -1,11 +1,14 @@
+import LogoNavbar from "../parts/LogoNavbar";
 import Footer from "../templates/Footer";
-import LogoLinkNavbar from "../templates/LogoLinkNavbar";
+import Header from "../templates/Header";
 import SignupSection from "../templates/SignupSection";
 
 const SignupView = () => {
   return (
     <>
-      <LogoLinkNavbar />
+      <Header>
+        <LogoNavbar />
+      </Header>
       <SignupSection />
       <Footer />
     </>

@@ -1,18 +1,18 @@
 import LogoNavbar from "../parts/LogoNavbar";
 import Footer from "../templates/Footer";
 import Header from "../templates/Header";
-import SigninSection from "../templates/SigninSection";
+import LoginSection from "../templates/LoginSection";
 
-const SigninView = () => {
+const LoginView = () => {
   return (
     <>
       <Header>
         <LogoNavbar />
       </Header>
-      <SigninSection />
+      <LoginSection />
       <Footer />
     </>
   );
 };
 
-export default SigninView;
+export default LoginView;

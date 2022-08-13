@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const SigninSection = () => {
   return (
-    <div className="signin">
+    <main className="signin">
       <p>テストテキストテストテキストテストテキスト</p>
       <ul>
         <li>
@@ -16,7 +16,7 @@ const SigninSection = () => {
           <Link to="/">戻る</Link>
         </li>
       </ul>
-    </div>
+    </main>
   );
 };
 

@@ -1,11 +1,7 @@
-import { Link } from "react-router-dom";
+import LoginView from "../views/LoginView";
 
-export default function Login() {
-  return (
-    <main>
-      <h2>Login</h2>
-      <p>テストテキストテストテキストテストテキスト</p>
-      <Link to="/">戻る</Link>
-    </main>
-  );
-}
+const Login = () => {
+  return <LoginView />;
+};
+
+export default Login;
