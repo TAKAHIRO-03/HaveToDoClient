@@ -68,7 +68,7 @@ const SignupSection = () => {
   };
 
   return (
-    <div className="signup">
+    <main className="signup">
       <div className="signup-title">アカウント登録</div>
       <div className="register-form">
         <form onSubmit={handleSubmit(onSubmit)}>
@@ -154,7 +154,7 @@ const SignupSection = () => {
           </FormGroup>
         </form>
       </div>
-    </div>
+    </main>
   );
 };
 

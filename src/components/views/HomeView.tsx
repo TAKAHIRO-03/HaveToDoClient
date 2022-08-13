@@ -1,11 +1,14 @@
-import HomeNavbar from "../templates/HomeNavbar";
+import HomeNavbar from "../parts/HomeNavbar";
 import Footer from "../templates/Footer";
+import Header from "../templates/Header";
 import HomeSection from "../templates/HomeSection";
 
 const HomeView = () => {
   return (
     <>
-      <HomeNavbar />
+      <Header>
+        <HomeNavbar />
+      </Header>
       <HomeSection />
       <Footer />
     </>

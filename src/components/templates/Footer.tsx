@@ -3,7 +3,7 @@ import FooterItem from "../parts/FooterItem";
 
 const Footer = () => {
   return (
-    <div className="footer" id="footer">
+    <footer className="footer" id="footer">
       <div className="footer-content">
         <ul className="footer-items">
           <FooterItem>© 2022 GoodHabits Inc.</FooterItem>
@@ -29,7 +29,7 @@ const Footer = () => {
           </FooterItem>
         </ul>
       </div>
-    </div>
+    </footer>
   );
 };
 
