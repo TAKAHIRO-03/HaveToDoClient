@@ -13,6 +13,7 @@ import { createContext } from "react";
 import { AccountRepository } from "./api/rest/AccountRepository";
 import { createDependencyRegistrar } from "./di/DependencyRegistrar";
 import { LoginRepository } from "./api/rest/LoginRepository";
+import Habits from "./components/pages/Habits";
 
 /* create DI container */
 
@@ -45,6 +46,7 @@ export const App = () => {
           <Route path="/pp" element={<PrivacyPolicy />} />
           <Route path="/asct" element={<Asct />} />
           <Route path="/terms" element={<Asct />} />
+          <Route path="/habits" element={<Habits />} />
           <Route path="/error" element={<Error />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
