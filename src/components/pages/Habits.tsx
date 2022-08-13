@@ -1,11 +1,7 @@
-import { Link } from "react-router-dom";
+import HabitsView from "../views/HabitsView";
 
-export default function Habits() {
-  return (
-    <main>
-      <h2>Act on specified commercial transactions</h2>
-      <p>テストテキストテストテキストテストテキスト</p>
-      <Link to="/">戻る</Link>
-    </main>
-  );
-}
+const Habits = () => {
+  return <HabitsView />;
+};
+
+export default Habits;
