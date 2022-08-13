@@ -8,20 +8,25 @@ import Login from "./components/pages/Login";
 import PrivacyPolicy from "./components/pages/PrivacyPolicy";
 import Asct from "./components/pages/Asct";
 import NotFound from "./components/pages/NotFound";
+import Error from "./components/pages/Error";
 import { createContext } from "react";
 import { AccountRepository } from "./api/rest/AccountRepository";
 import { createDependencyRegistrar } from "./di/DependencyRegistrar";
+import { LoginRepository } from "./api/rest/LoginRepository";
 
 /* create DI container */
 
 // define DI container to register
 type Dependencies = {
   accountRepo: AccountRepository;
+  loginRepo: LoginRepository;
 };
 
 // register Bean and define Context
 const registrar = createDependencyRegistrar<Dependencies>();
 registrar.register("accountRepo", new AccountRepository());
+registrar.register("loginRepo", new LoginRepository());
+
 export const DiConteinerContext = createContext(
   createDependencyRegistrar<Dependencies>()
 );
@@ -40,6 +45,7 @@ export const App = () => {
           <Route path="/pp" element={<PrivacyPolicy />} />
           <Route path="/asct" element={<Asct />} />
           <Route path="/terms" element={<Asct />} />
+          <Route path="/error" element={<Error />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </DiConteinerContext.Provider>
