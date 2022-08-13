@@ -9,7 +9,7 @@ import {
   validateConfirmPassword,
   validateEmail,
   validatePassword,
-} from "../../util/ValidationUtil";
+} from "./util/ValidationUtil";
 import {
   AccountRepository,
   AccountRequest,
@@ -63,7 +63,7 @@ const SignupSection = () => {
       });
     });
     setDialogConfig(undefined);
-    navigate("/");
+    navigate("/login");
   };
 
   const accountRepo: AccountRepository = resolveDiConteinerContext(

@@ -1,7 +1,7 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
 import { useForm } from "react-hook-form";
-import { validateEmail, validatePassword } from "../../util/ValidationUtil";
+import { validateEmail, validatePassword } from "./util/ValidationUtil";
 import { useContext, useState } from "react";
 import { LoginRepository, LoginRequest } from "../../api/rest/LoginRepository";
 import { DiConteinerContext } from "../../App";
@@ -46,7 +46,7 @@ const LoginSection = () => {
       });
     });
     setDialogConfig(undefined);
-    window.location.href = "/habits";
+    navigate("/habits");
   };
 
   const loginRepo: LoginRepository = resolveDiConteinerContext(
