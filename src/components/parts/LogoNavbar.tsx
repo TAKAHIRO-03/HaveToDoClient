@@ -3,9 +3,6 @@ import logo from "../../img/logo.svg";
 
 const LogoNavbar = () => {
   const navigate = useNavigate();
-  const moveToHome = () => {
-    navigate("/");
-  };
   return (
     <nav className="nav" id="navbar">
       <div className="nav-content">
@@ -15,7 +12,9 @@ const LogoNavbar = () => {
           alt="Logo"
           width="100"
           height="100"
-          onClick={moveToHome}
+          onClick={() => {
+            navigate("/");
+          }}
         />
       </div>
     </nav>
