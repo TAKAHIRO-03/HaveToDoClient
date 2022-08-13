@@ -3,7 +3,6 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
 import InputValue from "../parts/InputValue";
 import FormGroup from "../parts/FormGroup";
-import Button from "../parts/Button";
 import {
   validateAcceptTerms,
   validateConfirmEmail,
@@ -15,11 +14,17 @@ import {
   AccountRepository,
   AccountRequest,
 } from "../../api/rest/AccountRepository";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import axios from "axios";
 import { BaseResponse } from "../../api/rest/base/BaseResponse";
 import { DiConteinerContext } from "../../App";
 import { resolveDiConteinerContext } from "../../di/DiConteinerContextResolver";
+import { Button } from "@mui/material";
+import {
+  SuccessedDialogProps,
+  SuccessedDialog,
+} from "../parts/SuccessedDialog";
+import { useNavigate } from "react-router-dom";
 
 type SignupForm = {
   email: string;
@@ -41,11 +46,25 @@ const SignupSection = () => {
   const {
     register,
     handleSubmit,
-    reset,
-    formState: { errors },
+    formState: { errors, touchedFields },
   } = useForm<SignupForm>({
     resolver: yupResolver(validationSchema),
+    mode: "onBlur",
   });
+
+  const navigate = useNavigate();
+  const [dialogConfig, setDialogConfig] = useState<SuccessedDialogProps>();
+  const openDialog = async () => {
+    await new Promise<string>((resolve) => {
+      setDialogConfig({
+        onClose: resolve,
+        message:
+          "A verification email has been sent to the email address you entered. Please check your mailbox to complete this registration.",
+      });
+    });
+    setDialogConfig(undefined);
+    navigate("/");
+  };
 
   const accountRepo: AccountRepository = resolveDiConteinerContext(
     useContext(DiConteinerContext)
@@ -62,10 +81,20 @@ const SignupSection = () => {
 
     accountRepo.post(req).then((res) => {
       if (axios.isAxiosError(res) || (res as BaseResponse).status !== 201) {
-        // TODO リダイレクトする
+        navigate("/error");
       }
+      openDialog();
     });
   };
+
+  // When user input all field and nothing any errors, false other true.
+  const buttonState =
+    touchedFields.email &&
+    touchedFields.confirmEmail &&
+    touchedFields.password &&
+    touchedFields.confirmPassword &&
+    touchedFields.acceptTerms &&
+    Object.keys(errors).length !== 0;
 
   return (
     <main className="signup">
@@ -142,15 +171,13 @@ const SignupSection = () => {
           <FormGroup>
             <Button
               type="submit"
+              variant="contained"
+              disabled={buttonState === undefined ? true : buttonState}
               className="btn btn-primary"
-              btnName="Register"
-            />
-            <Button
-              type="button"
-              onClick={() => reset()}
-              className="btn btn-warning float-right"
-              btnName="Reset"
-            />
+            >
+              Register
+            </Button>
+            {dialogConfig && <SuccessedDialog {...dialogConfig} />}
           </FormGroup>
         </form>
       </div>
