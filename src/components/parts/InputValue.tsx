@@ -7,6 +7,7 @@ type LavelProps = {
 type InputProps = {
   label: LavelProps;
   type: "checkbox" | "text" | "password";
+  id?: string;
   className: string;
   name: string;
   register: any;
@@ -19,6 +20,7 @@ const InputValue = (props: InputProps) => {
         {props.label.text}
       </label>
       <input
+        id={props?.id}
         type={props.type}
         {...props.register(props.name)}
         className={props.className}
