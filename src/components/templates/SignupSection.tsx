@@ -131,6 +131,7 @@ const SignupSection = () => {
                 className: "form-check-label",
               }}
               type="checkbox"
+              id="acceptTerms"
               className={`form-check-input ${
                 errors.acceptTerms ? "is-invalid" : ""
               }`}

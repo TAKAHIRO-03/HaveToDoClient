@@ -5,16 +5,16 @@ type FormGroupProps = {
 };
 
 const FormGroup = (props: FormGroupProps) => {
+  const errorElement =
+    props?.errorMsg !== undefined ? (
+      <div className="invalid-feedback">{props?.errorMsg}</div>
+    ) : undefined;
   return (
     <div
-      className={
-        props.className !== null || props.className !== undefined
-          ? props.className
-          : "form-group"
-      }
+      className={props.className !== undefined ? props.className : "form-group"}
     >
       {props.children}
-      <div className="invalid-feedback">{props?.errorMsg}</div>
+      {errorElement}
     </div>
   );
 };
