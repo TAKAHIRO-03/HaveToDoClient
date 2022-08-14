@@ -18,13 +18,13 @@ import { useContext, useState } from "react";
 import axios from "axios";
 import { BaseResponse } from "../../api/rest/base/BaseResponse";
 import { DiConteinerContext } from "../../App";
-import { resolveDiConteinerContext } from "../../di/DiConteinerContextResolver";
 import { Button } from "@mui/material";
 import {
   SuccessedDialogProps,
   SuccessedDialog,
 } from "../parts/SuccessedDialog";
 import { useNavigate } from "react-router-dom";
+import { resolveDiConteinerContext } from "../../di/DependencyRegistrar";
 
 type SignupForm = {
   email: string;
