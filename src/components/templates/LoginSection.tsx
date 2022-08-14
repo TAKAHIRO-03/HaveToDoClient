@@ -5,7 +5,6 @@ import { validateEmail, validatePassword } from "./util/ValidationUtil";
 import { useContext, useState } from "react";
 import { LoginRepository, LoginRequest } from "../../api/rest/LoginRepository";
 import { DiConteinerContext } from "../../App";
-import { resolveDiConteinerContext } from "../../di/DiConteinerContextResolver";
 import axios from "axios";
 import { BaseResponse } from "../../api/rest/base/BaseResponse";
 import FormGroup from "../parts/FormGroup";
@@ -16,6 +15,7 @@ import {
   SuccessedDialogProps,
 } from "../parts/SuccessedDialog";
 import { useNavigate } from "react-router-dom";
+import { resolveDiConteinerContext } from "../../di/DependencyRegistrar";
 
 type LoginForm = {
   email: string;

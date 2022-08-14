@@ -10,33 +10,17 @@ import Asct from "./components/pages/Asct";
 import NotFound from "./components/pages/NotFound";
 import Error from "./components/pages/Error";
 import { createContext } from "react";
-import { AccountRepository } from "./api/rest/AccountRepository";
-import { createDependencyRegistrar } from "./di/DependencyRegistrar";
-import { LoginRepository } from "./api/rest/LoginRepository";
 import Habits from "./components/pages/Habits";
+import { DiContainer } from "./di/DiContainer";
 
-/* create DI container */
-
-// define DI container to register
-type Dependencies = {
-  accountRepo: AccountRepository;
-  loginRepo: LoginRepository;
-};
-
-// register Bean and define Context
-const registrar = createDependencyRegistrar<Dependencies>();
-registrar.register("accountRepo", new AccountRepository());
-registrar.register("loginRepo", new LoginRepository());
-
-export const DiConteinerContext = createContext(
-  createDependencyRegistrar<Dependencies>()
-);
+/* create DI container context */
+export const DiConteinerContext = createContext(DiContainer);
 
 /* create parent component */
 export const App = () => {
   return (
     <BrowserRouter>
-      <DiConteinerContext.Provider value={registrar}>
+      <DiConteinerContext.Provider value={DiContainer}>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/company" element={<Company />} />
