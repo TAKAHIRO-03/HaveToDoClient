@@ -28,7 +28,7 @@ const HomeNavbar = () => {
               offset={-70}
               duration={500}
             >
-              GoodHabitsとは？
+              HaveTodoとは？
             </ReactScroll.Link>
           </NavItem>
           <NavItem>

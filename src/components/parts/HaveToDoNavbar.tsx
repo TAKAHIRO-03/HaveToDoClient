@@ -1,12 +1,12 @@
 import React from "react";
 import { slide as Menu } from "react-burger-menu";
 import { Link } from "react-router-dom";
-import "./css/HabitsNavbar.css";
+import "./css/HaveToDoNavbar.css";
 
-const HabitsNavbar = () => {
+const HaveToDoNavbar = () => {
   return (
     <Menu right>
-      <Link to="/">GoodHabitsとは</Link>
+      <Link to="/">HaveTodoとは</Link>
       <Link to="/">履歴</Link>
       <Link to="/">パスワード変更</Link>
       <Link to="/">決済方法</Link>
@@ -20,4 +20,4 @@ const HabitsNavbar = () => {
   );
 };
 
-export default HabitsNavbar;
+export default HaveToDoNavbar;

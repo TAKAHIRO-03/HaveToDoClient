@@ -1,20 +1,20 @@
-import HabitsNavbar from "../parts/HabitsNavbar";
+import HaveToDoNavbar from "../parts/HaveToDoNavbar";
 import LogoNavbar from "../parts/LogoNavbar";
 import Footer from "../templates/Footer";
-import HabitsSection from "../templates/HabitsSection";
+import HaveToDoSection from "../templates/HaveToDoSection";
 import Header from "../templates/Header";
 
-const HabitsView = () => {
+const HaveToDoView = () => {
   return (
     <>
       <Header>
-        <HabitsNavbar />
+        <HaveToDoNavbar />
         <LogoNavbar />
       </Header>
-      <HabitsSection />
+      <HaveToDoSection />
       <Footer />
     </>
   );
 };
 
-export default HabitsView;
+export default HaveToDoView;

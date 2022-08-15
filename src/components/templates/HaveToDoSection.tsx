@@ -7,10 +7,10 @@ import {
 } from "@hello-pangea/dnd";
 import React, { useState } from "react";
 import { Card } from "../parts/Card";
-import "./css/HabitsSection.css";
+import "./css/HaveToDoSection.css";
 import { v4 as uuidv4 } from "uuid";
 
-type habit = {
+type task = {
   id: string;
   title: string;
 };
@@ -18,15 +18,15 @@ type habit = {
 type section = {
   id: string;
   title: string;
-  habits: habit[];
+  havetodos: task[];
 };
 
-export const HabitsSection = () => {
-  const initialHabits: section[] = [
+export const HaveToDoSection = () => {
+  const initialTasks: section[] = [
     {
       id: uuidv4(),
       title: "📝今日やること",
-      habits: [
+      havetodos: [
         {
           id: uuidv4(),
           title: "Reactの勉強",
@@ -44,7 +44,7 @@ export const HabitsSection = () => {
     {
       id: uuidv4(),
       title: "🚀今後やること",
-      habits: [
+      havetodos: [
         {
           id: uuidv4(),
           title: "コーディング",
@@ -57,7 +57,7 @@ export const HabitsSection = () => {
     },
   ];
 
-  const [habits, setHabits] = useState(initialHabits);
+  const [havetodos, setTasks] = useState(initialTasks);
   const onDragEnd = (result: DropResult) => {
     const { source, destination } = result;
 
@@ -68,74 +68,77 @@ export const HabitsSection = () => {
     ) {
       if (source.droppableId !== destination?.droppableId) {
         // find droppableId source and dest
-        const sourceColIndex: number = habits.findIndex(
+        const sourceColIndex: number = havetodos.findIndex(
           (e) => e.id === source.droppableId
         );
-        const destColIndex: number = habits.findIndex(
+        const destColIndex: number = havetodos.findIndex(
           (e) => e.id === destination!.droppableId
         );
 
         // find section
-        const sourceCol: section = habits[sourceColIndex];
-        const destCol: section = habits[destColIndex];
+        const sourceCol: section = havetodos[sourceColIndex];
+        const destCol: section = havetodos[destColIndex];
 
-        // copied habits
-        const sourceTasks: habit[] = [...sourceCol.habits];
-        const destTasks: habit[] = [...destCol.habits];
+        // copied havetodos
+        const sourceTasks: task[] = [...sourceCol.havetodos];
+        const destTasks: task[] = [...destCol.havetodos];
 
-        // delete habit
-        const [removed]: habit[] = sourceTasks.splice(source.index, 1);
+        // delete task
+        const [removed]: task[] = sourceTasks.splice(source.index, 1);
 
-        // add habit
+        // add task
         if (destination?.index !== null || destination?.index !== undefined) {
           destTasks.splice(destination!.index, 0, removed);
         }
-        habits[sourceColIndex].habits = sourceTasks;
-        habits[destColIndex].habits = destTasks;
-        setHabits(habits);
+        havetodos[sourceColIndex].havetodos = sourceTasks;
+        havetodos[destColIndex].havetodos = destTasks;
+        setTasks(havetodos);
 
         return;
       }
     }
 
     /* same column */
-    const sourceColIndex: number = habits.findIndex(
+    const sourceColIndex: number = havetodos.findIndex(
       (e) => e.id === source.droppableId
     );
-    const sourceCol: section = habits[sourceColIndex];
-    // copied habits
-    const sourceTasks: habit[] = [...sourceCol.habits];
-    // delete habit
-    const [removed]: habit[] = sourceTasks.splice(source.index, 1);
-    // add habit
+    const sourceCol: section = havetodos[sourceColIndex];
+    // copied havetodos
+    const sourceTasks: task[] = [...sourceCol.havetodos];
+    // delete task
+    const [removed]: task[] = sourceTasks.splice(source.index, 1);
+    // add task
     if (destination?.index !== null || destination?.index !== undefined) {
       sourceTasks.splice(destination!.index, 0, removed);
     }
-    habits[sourceColIndex].habits = sourceTasks;
-    setHabits(habits);
+    havetodos[sourceColIndex].havetodos = sourceTasks;
+    setTasks(havetodos);
   };
+
+  const handleUpdateTask = () => console.log("yahoo");
 
   return (
     <DragDropContext onDragEnd={onDragEnd}>
-      <main className="habits">
-        {habits.map((section) => (
+      <main className="havetodos">
+        {havetodos.map((section) => (
           <Droppable key={section.id} droppableId={section.id}>
             {(provided: DroppableProvided) => (
               <div
-                className="habits-section"
+                className="havetodos-section"
                 ref={provided.innerRef}
                 {...provided.droppableProps}
               >
-                <div className="habits-section-title">{section.title}</div>
-                <div className="habits-section-content">
-                  {section.habits.map((habit, index) => (
+                <div className="havetodos-section-title">{section.title}</div>
+                <div className="havetodos-section-content">
+                  {section.havetodos.map((task, index) => (
                     <Draggable
-                      draggableId={habit.id}
+                      draggableId={task.id}
                       index={index}
-                      key={habit.id}
+                      key={task.id}
                     >
                       {(provided, snapshot) => (
                         <div
+                          onClick={handleUpdateTask}
                           ref={provided.innerRef}
                           {...provided.draggableProps}
                           {...provided.dragHandleProps}
@@ -144,7 +147,7 @@ export const HabitsSection = () => {
                             opacity: snapshot.isDragging ? "0.3" : "1",
                           }}
                         >
-                          <Card>{habit.title}</Card>
+                          <Card>{task.title}</Card>
                         </div>
                       )}
                     </Draggable>
@@ -160,4 +163,4 @@ export const HabitsSection = () => {
   );
 };
 
-export default HabitsSection;
+export default HaveToDoSection;

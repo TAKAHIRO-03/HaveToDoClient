@@ -46,7 +46,7 @@ const LoginSection = () => {
       });
     });
     setDialogConfig(undefined);
-    navigate("/habits");
+    navigate("/havetodos");
   };
 
   const loginRepo: LoginRepository = resolveDiConteinerContext(

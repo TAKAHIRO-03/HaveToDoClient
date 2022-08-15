@@ -6,7 +6,7 @@ const Footer = () => {
     <footer className="footer" id="footer">
       <div className="footer-content">
         <ul className="footer-items">
-          <FooterItem>© 2022 GoodHabits Inc.</FooterItem>
+          <FooterItem>© 2022 HaveTodo Inc.</FooterItem>
           <FooterItem>
             <Link to="/company">運営</Link>
           </FooterItem>
