@@ -10,7 +10,7 @@ import Asct from "./components/pages/Asct";
 import NotFound from "./components/pages/NotFound";
 import Error from "./components/pages/Error";
 import { createContext } from "react";
-import Habits from "./components/pages/Habits";
+import HaveToDo from "./components/pages/HaveToDo";
 import { DiContainer } from "./di/DiContainer";
 
 /* create DI container context */
@@ -30,7 +30,7 @@ export const App = () => {
           <Route path="/pp" element={<PrivacyPolicy />} />
           <Route path="/asct" element={<Asct />} />
           <Route path="/terms" element={<Asct />} />
-          <Route path="/habits" element={<Habits />} />
+          <Route path="/havetodos" element={<HaveToDo />} />
           <Route path="/error" element={<Error />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
