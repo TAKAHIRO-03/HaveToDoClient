@@ -7,26 +7,26 @@ import {
 } from "@hello-pangea/dnd";
 import React, { useState } from "react";
 import { Card } from "../parts/Card";
-import "./css/HaveToDoSection.css";
+import "./css/PlannedTaskSection.css";
 import { v4 as uuidv4 } from "uuid";
 
-type task = {
+type Task = {
   id: string;
   title: string;
 };
 
-type section = {
+type Section = {
   id: string;
   title: string;
-  havetodos: task[];
+  plannedTasks: Task[];
 };
 
-export const HaveToDoSection = () => {
-  const initialTasks: section[] = [
+export const PlannedTaskSection = () => {
+  const initialTasks: Section[] = [
     {
       id: uuidv4(),
       title: "📝今日やること",
-      havetodos: [
+      plannedTasks: [
         {
           id: uuidv4(),
           title: "Reactの勉強",
@@ -44,7 +44,7 @@ export const HaveToDoSection = () => {
     {
       id: uuidv4(),
       title: "🚀今後やること",
-      havetodos: [
+      plannedTasks: [
         {
           id: uuidv4(),
           title: "コーディング",
@@ -57,7 +57,7 @@ export const HaveToDoSection = () => {
     },
   ];
 
-  const [havetodos, setTasks] = useState(initialTasks);
+  const [plannedTasks, setTasks] = useState(initialTasks);
   const onDragEnd = (result: DropResult) => {
     const { source, destination } = result;
 
@@ -68,69 +68,79 @@ export const HaveToDoSection = () => {
     ) {
       if (source.droppableId !== destination?.droppableId) {
         // find droppableId source and dest
-        const sourceColIndex: number = havetodos.findIndex(
+        const sourceColIndex: number = plannedTasks.findIndex(
           (e) => e.id === source.droppableId
         );
-        const destColIndex: number = havetodos.findIndex(
+        const destColIndex: number = plannedTasks.findIndex(
           (e) => e.id === destination!.droppableId
         );
 
         // find section
-        const sourceCol: section = havetodos[sourceColIndex];
-        const destCol: section = havetodos[destColIndex];
+        const sourceCol = plannedTasks[sourceColIndex];
+        const destCol = plannedTasks[destColIndex];
 
-        // copied havetodos
-        const sourceTasks: task[] = [...sourceCol.havetodos];
-        const destTasks: task[] = [...destCol.havetodos];
+        // copied plannedTasks
+        const sourceTasks = [...sourceCol.plannedTasks];
+        const destTasks = [...destCol.plannedTasks];
 
         // delete task
-        const [removed]: task[] = sourceTasks.splice(source.index, 1);
+        const [removed] = sourceTasks.splice(source.index, 1);
 
         // add task
         if (destination?.index !== null || destination?.index !== undefined) {
           destTasks.splice(destination!.index, 0, removed);
         }
-        havetodos[sourceColIndex].havetodos = sourceTasks;
-        havetodos[destColIndex].havetodos = destTasks;
-        setTasks(havetodos);
+        plannedTasks[sourceColIndex].plannedTasks = sourceTasks;
+        plannedTasks[destColIndex].plannedTasks = destTasks;
+        setTasks(plannedTasks);
 
         return;
       }
     }
 
     /* same column */
-    const sourceColIndex: number = havetodos.findIndex(
+    const sourceColIndex: number = plannedTasks.findIndex(
       (e) => e.id === source.droppableId
     );
-    const sourceCol: section = havetodos[sourceColIndex];
-    // copied havetodos
-    const sourceTasks: task[] = [...sourceCol.havetodos];
+    const sourceCol = plannedTasks[sourceColIndex];
+    // copied plannedTasks
+    const sourceTasks = [...sourceCol.plannedTasks];
     // delete task
-    const [removed]: task[] = sourceTasks.splice(source.index, 1);
+    const [removed] = sourceTasks.splice(source.index, 1);
     // add task
     if (destination?.index !== null || destination?.index !== undefined) {
       sourceTasks.splice(destination!.index, 0, removed);
     }
-    havetodos[sourceColIndex].havetodos = sourceTasks;
-    setTasks(havetodos);
+    plannedTasks[sourceColIndex].plannedTasks = sourceTasks;
+    setTasks(plannedTasks);
   };
 
-  const handleUpdateTask = () => console.log("yahoo");
+  const handleUpdateTask = (
+    event: React.MouseEvent<HTMLDivElement, MouseEvent>
+  ) => {
+    console.log(
+      (event.target as HTMLDivElement).attributes.getNamedItem("section-id")
+        ?.value
+    );
+    console.log(
+      (event.target as HTMLDivElement).attributes.getNamedItem("task-id")?.value
+    );
+  };
 
   return (
     <DragDropContext onDragEnd={onDragEnd}>
-      <main className="havetodos">
-        {havetodos.map((section) => (
+      <main className="planned-task">
+        {plannedTasks.map((section) => (
           <Droppable key={section.id} droppableId={section.id}>
             {(provided: DroppableProvided) => (
               <div
-                className="havetodos-section"
+                className="planned-task-section"
                 ref={provided.innerRef}
                 {...provided.droppableProps}
               >
-                <div className="havetodos-section-title">{section.title}</div>
-                <div className="havetodos-section-content">
-                  {section.havetodos.map((task, index) => (
+                <div className="planned-task-section-title">{section.title}</div>
+                <div className="planned-task-section-content">
+                  {section.plannedTasks.map((task, index) => (
                     <Draggable
                       draggableId={task.id}
                       index={index}
@@ -147,7 +157,9 @@ export const HaveToDoSection = () => {
                             opacity: snapshot.isDragging ? "0.3" : "1",
                           }}
                         >
-                          <Card>{task.title}</Card>
+                          <Card sectionId={section.id} taskId={task.id}>
+                            {task.title}
+                          </Card>
                         </div>
                       )}
                     </Draggable>
@@ -163,4 +175,4 @@ export const HaveToDoSection = () => {
   );
 };
 
-export default HaveToDoSection;
+export default PlannedTaskSection;
