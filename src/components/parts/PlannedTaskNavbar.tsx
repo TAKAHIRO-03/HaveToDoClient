@@ -1,9 +1,9 @@
 import React from "react";
 import { slide as Menu } from "react-burger-menu";
 import { Link } from "react-router-dom";
-import "./css/HaveToDoNavbar.css";
+import "./css/PlannedTaskNavbar.css";
 
-const HaveToDoNavbar = () => {
+const PlannedTaskNavbar = () => {
   return (
     <Menu right>
       <Link to="/">HaveTodoとは</Link>
@@ -20,4 +20,4 @@ const HaveToDoNavbar = () => {
   );
 };
 
-export default HaveToDoNavbar;
+export default PlannedTaskNavbar;
