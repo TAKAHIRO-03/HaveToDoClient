@@ -23,6 +23,7 @@ export class CommonResponse extends BaseResponse {
     super(res.headers, res.status, res.data);
   }
 }
+
 export class CommonErrorResponse extends BaseErrorResponse {
   constructor(error: AxiosError<unknown, any>) {
     super(error);

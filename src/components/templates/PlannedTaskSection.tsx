@@ -8,56 +8,18 @@ import {
 import React, { useState } from "react";
 import { Card } from "../parts/Card";
 import "./css/PlannedTaskSection.css";
-import { v4 as uuidv4 } from "uuid";
+import { Section } from "./PlannedTaskSectionParent";
 
-type Task = {
-  id: string;
-  title: string;
+type PlannedTaskSectionProps = {
+  initialSections: Section[];
 };
 
-type Section = {
-  id: string;
-  title: string;
-  plannedTasks: Task[];
-};
+export const PlannedTaskSection = (props: PlannedTaskSectionProps) => {
+  const initialSections = props.initialSections;
 
-export const PlannedTaskSection = () => {
-  const initialTasks: Section[] = [
-    {
-      id: uuidv4(),
-      title: "📝今日やること",
-      plannedTasks: [
-        {
-          id: uuidv4(),
-          title: "Reactの勉強",
-        },
-        {
-          id: uuidv4(),
-          title: "Youtubeで勉強",
-        },
-        {
-          id: uuidv4(),
-          title: "散歩",
-        },
-      ],
-    },
-    {
-      id: uuidv4(),
-      title: "🚀今後やること",
-      plannedTasks: [
-        {
-          id: uuidv4(),
-          title: "コーディング",
-        },
-        {
-          id: uuidv4(),
-          title: "転職活動",
-        },
-      ],
-    },
-  ];
+  // define useState
+  const [sections, setSections] = useState(initialSections);
 
-  const [plannedTasks, setTasks] = useState(initialTasks);
   const onDragEnd = (result: DropResult) => {
     const { source, destination } = result;
 
@@ -68,18 +30,18 @@ export const PlannedTaskSection = () => {
     ) {
       if (source.droppableId !== destination?.droppableId) {
         // find droppableId source and dest
-        const sourceColIndex: number = plannedTasks.findIndex(
+        const sourceColIndex: number = sections.findIndex(
           (e) => e.id === source.droppableId
         );
-        const destColIndex: number = plannedTasks.findIndex(
+        const destColIndex: number = sections.findIndex(
           (e) => e.id === destination!.droppableId
         );
 
         // find section
-        const sourceCol = plannedTasks[sourceColIndex];
-        const destCol = plannedTasks[destColIndex];
+        const sourceCol = sections[sourceColIndex];
+        const destCol = sections[destColIndex];
 
-        // copied plannedTasks
+        // copied section
         const sourceTasks = [...sourceCol.plannedTasks];
         const destTasks = [...destCol.plannedTasks];
 
@@ -90,19 +52,19 @@ export const PlannedTaskSection = () => {
         if (destination?.index !== null || destination?.index !== undefined) {
           destTasks.splice(destination!.index, 0, removed);
         }
-        plannedTasks[sourceColIndex].plannedTasks = sourceTasks;
-        plannedTasks[destColIndex].plannedTasks = destTasks;
-        setTasks(plannedTasks);
+        sections[sourceColIndex].plannedTasks = sourceTasks;
+        sections[destColIndex].plannedTasks = destTasks;
+        setSections(sections);
 
         return;
       }
     }
 
     /* same column */
-    const sourceColIndex: number = plannedTasks.findIndex(
+    const sourceColIndex: number = sections.findIndex(
       (e) => e.id === source.droppableId
     );
-    const sourceCol = plannedTasks[sourceColIndex];
+    const sourceCol = sections[sourceColIndex];
     // copied plannedTasks
     const sourceTasks = [...sourceCol.plannedTasks];
     // delete task
@@ -111,8 +73,8 @@ export const PlannedTaskSection = () => {
     if (destination?.index !== null || destination?.index !== undefined) {
       sourceTasks.splice(destination!.index, 0, removed);
     }
-    plannedTasks[sourceColIndex].plannedTasks = sourceTasks;
-    setTasks(plannedTasks);
+    sections[sourceColIndex].plannedTasks = sourceTasks;
+    setSections(sections);
   };
 
   const handleUpdateTask = (
@@ -130,7 +92,7 @@ export const PlannedTaskSection = () => {
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       <main className="planned-task">
-        {plannedTasks.map((section) => (
+        {sections.map((section) => (
           <Droppable key={section.id} droppableId={section.id}>
             {(provided: DroppableProvided) => (
               <div
@@ -138,13 +100,15 @@ export const PlannedTaskSection = () => {
                 ref={provided.innerRef}
                 {...provided.droppableProps}
               >
-                <div className="planned-task-section-title">{section.title}</div>
+                <div className="planned-task-section-title">
+                  {section.title}
+                </div>
                 <div className="planned-task-section-content">
                   {section.plannedTasks.map((task, index) => (
                     <Draggable
-                      draggableId={task.id}
+                      draggableId={String(task.id)}
                       index={index}
-                      key={task.id}
+                      key={String(task.id)}
                     >
                       {(provided, snapshot) => (
                         <div

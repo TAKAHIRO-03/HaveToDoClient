@@ -1,8 +1,8 @@
 import PlannedTaskNavbar from "../parts/PlannedTaskNavbar";
 import LogoNavbar from "../parts/LogoNavbar";
 import Footer from "../templates/Footer";
-import PlannedTaskSection from "../templates/PlannedTaskSection";
 import Header from "../templates/Header";
+import PlannedTaskSectionParent from "../templates/PlannedTaskSectionParent";
 
 const PlannedTaskView = () => {
   return (
@@ -11,7 +11,7 @@ const PlannedTaskView = () => {
         <PlannedTaskNavbar />
         <LogoNavbar />
       </Header>
-      <PlannedTaskSection />
+      <PlannedTaskSectionParent />
       <Footer />
     </>
   );
