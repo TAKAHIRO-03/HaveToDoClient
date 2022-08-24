@@ -12,7 +12,7 @@ export abstract class BaseRepository {
   }
 
   abstract post(req: BaseRequest): Promise<BaseResponse | BaseErrorResponse>;
-  abstract get(...args: any): BaseResponse;
+  abstract get(...args: any): Promise<BaseResponse | BaseErrorResponse>;
   abstract patch(req: BaseRequest): BaseResponse;
   abstract delete(...args: any): BaseResponse;
 }

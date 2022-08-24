@@ -2,7 +2,7 @@ import React from "react";
 
 export type CardProps = {
   sectionId: string;
-  taskId: string;
+  taskId: number;
   children: string;
 };
 
