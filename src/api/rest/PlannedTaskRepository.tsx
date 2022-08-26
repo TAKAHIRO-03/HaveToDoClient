@@ -66,7 +66,7 @@ export class PlannedTaskGetResponse extends BaseResponse {
   public readonly data: PlannedTask[];
   constructor(headers: AxiosResponseHeaders, status: number, data: any) {
     super(headers, status, null);
-    this.data = data as PlannedTask[];
+    this.data = data ? (data as PlannedTask[]) : [];
   }
 }
 
