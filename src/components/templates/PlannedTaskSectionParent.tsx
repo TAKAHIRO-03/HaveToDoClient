@@ -36,7 +36,7 @@ export const PlannedTaskSectionParent = () => {
     if (axios.isAxiosError(res)) {
       if (
         (res as BaseResponse).status !== 200 &&
-        (res as BaseResponse).status !== 404
+        (res as BaseResponse).status !== 204
       ) {
         navigate("/error");
         return undefined;
@@ -93,11 +93,7 @@ export const PlannedTaskSectionParent = () => {
 
     const copySections: Section[] = [];
     fetchPlannedTasks(reqTodayTasks).then((x) => {
-      const data: PlannedTask[] =
-        (x as PlannedTaskGetResponse).data === undefined ||
-        (x as PlannedTaskGetResponse).data === null
-          ? []
-          : (x as PlannedTaskGetResponse).data;
+      const data: PlannedTask[] = (x as PlannedTaskGetResponse).data;
       copySections.push({
         id: "todayTasks",
         title: "📝今日やること",
@@ -105,11 +101,7 @@ export const PlannedTaskSectionParent = () => {
       });
       fetchPlannedTasks(reqAfterTommorowTask)
         .then((x) => {
-          const data: PlannedTask[] =
-            (x as PlannedTaskGetResponse).data === undefined ||
-            (x as PlannedTaskGetResponse).data === null
-              ? []
-              : (x as PlannedTaskGetResponse).data;
+          const data: PlannedTask[] = (x as PlannedTaskGetResponse).data;
           copySections.push({
             id: "afterTommorowTask",
             title: "🚀今後やること",
