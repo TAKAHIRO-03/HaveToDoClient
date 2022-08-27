@@ -23,8 +23,6 @@ export class LoginRepository extends BaseRepository {
   public async post(
     req: LoginRequest
   ): Promise<BaseResponse | BaseErrorResponse> {
-    console.log(JSON.stringify(req));
-
     const res = await axios
       .post(this.baseUrl! + "/api/v1.0/login", JSON.stringify(req), {
         headers: {
@@ -44,7 +42,7 @@ export class LoginRepository extends BaseRepository {
 
     return new CommonResponse(res);
   }
-  public get(...args: any): CommonResponse {
+  public get(...args: any): Promise<BaseResponse | BaseErrorResponse> {
     throw new Error("Method not implemented.");
   }
   public patch(args: unknown): CommonResponse {

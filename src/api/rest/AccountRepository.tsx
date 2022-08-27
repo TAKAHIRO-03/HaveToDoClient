@@ -54,7 +54,7 @@ export class AccountRepository extends BaseRepository {
 
     return new CommonResponse(res);
   }
-  public get(...args: any): CommonResponse {
+  public get(...args: any): Promise<BaseResponse | BaseErrorResponse> {
     throw new Error("Method not implemented.");
   }
   public patch(args: unknown): CommonResponse {
