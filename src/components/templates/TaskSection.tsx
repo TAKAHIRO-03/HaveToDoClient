@@ -7,14 +7,14 @@ import {
 } from "@hello-pangea/dnd";
 import React, { useState } from "react";
 import { Card } from "../parts/Card";
-import "./css/PlannedTaskSection.css";
-import { Section } from "./PlannedTaskSectionParent";
+import "./css/TaskSection.css";
+import { Section } from "./TaskSectionParent";
 
-type PlannedTaskSectionProps = {
+type TaskSectionProps = {
   initialSections: Section[];
 };
 
-export const PlannedTaskSection = (props: PlannedTaskSectionProps) => {
+export const TaskSection = (props: TaskSectionProps) => {
   const initialSections = props.initialSections;
 
   // define useState
@@ -42,8 +42,8 @@ export const PlannedTaskSection = (props: PlannedTaskSectionProps) => {
         const destCol = sections[destColIndex];
 
         // copied section
-        const sourceTasks = [...sourceCol.plannedTasks];
-        const destTasks = [...destCol.plannedTasks];
+        const sourceTasks = [...sourceCol.tasks];
+        const destTasks = [...destCol.tasks];
 
         // delete task
         const [removed] = sourceTasks.splice(source.index, 1);
@@ -52,8 +52,8 @@ export const PlannedTaskSection = (props: PlannedTaskSectionProps) => {
         if (destination?.index !== null || destination?.index !== undefined) {
           destTasks.splice(destination!.index, 0, removed);
         }
-        sections[sourceColIndex].plannedTasks = sourceTasks;
-        sections[destColIndex].plannedTasks = destTasks;
+        sections[sourceColIndex].tasks = sourceTasks;
+        sections[destColIndex].tasks = destTasks;
         setSections(sections);
 
         return;
@@ -65,15 +65,15 @@ export const PlannedTaskSection = (props: PlannedTaskSectionProps) => {
       (e) => e.id === source.droppableId
     );
     const sourceCol = sections[sourceColIndex];
-    // copied plannedTasks
-    const sourceTasks = [...sourceCol.plannedTasks];
+    // copied tasks
+    const sourceTasks = [...sourceCol.tasks];
     // delete task
     const [removed] = sourceTasks.splice(source.index, 1);
     // add task
     if (destination?.index !== null || destination?.index !== undefined) {
       sourceTasks.splice(destination!.index, 0, removed);
     }
-    sections[sourceColIndex].plannedTasks = sourceTasks;
+    sections[sourceColIndex].tasks = sourceTasks;
     setSections(sections);
   };
 
@@ -104,7 +104,7 @@ export const PlannedTaskSection = (props: PlannedTaskSectionProps) => {
                   {section.title}
                 </div>
                 <div className="planned-task-section-content">
-                  {section.plannedTasks.map((task, index) => (
+                  {section.tasks.map((task, index) => (
                     <Draggable
                       draggableId={String(task.id)}
                       index={index}
@@ -139,4 +139,4 @@ export const PlannedTaskSection = (props: PlannedTaskSectionProps) => {
   );
 };
 
-export default PlannedTaskSection;
+export default TaskSection;

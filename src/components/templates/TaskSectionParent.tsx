@@ -1,38 +1,38 @@
 import { useContext, useEffect, useState } from "react";
-import "./css/PlannedTaskSection.css";
+import "./css/TaskSection.css";
 import {
-  PlannedTask,
-  PlannedTaskGetRequest,
-  PlannedTaskGetResponse,
-  PlannedTaskRepository,
-} from "../../api/rest/PlannedTaskRepository";
+  Task,
+  TaskGetRequest,
+  TaskGetResponse,
+  TaskRepository,
+} from "../../api/rest/TaskRepository";
 import { DiConteinerContext } from "../../App";
 import { resolveDiConteinerContext } from "../../di/DependencyRegistrar";
 import { BaseResponse } from "../../api/rest/base/BaseResponse";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import PlannedTaskSection from "./PlannedTaskSection";
+import TaskSection from "./TaskSection";
 
 export type Section = {
   id: "todayTasks" | "afterTommorowTask";
   title: string;
-  plannedTasks: PlannedTask[];
+  tasks: Task[];
 };
 
 /**
- * "PlannedTaskSectionParent" passes initial data to the child.
- * Child is "PlannedTaskSection"
+ * "TaskSectionParent" passes initial data to the child.
+ * Child is "TaskSection"
  */
-export const PlannedTaskSectionParent = () => {
+export const TaskSectionParent = () => {
   const [sections, setSections] = useState<Section[]>();
 
   // fetch initial planned task from server
   const navigate = useNavigate();
-  const plannedTaskRepo: PlannedTaskRepository = resolveDiConteinerContext(
+  const taskRepo: TaskRepository = resolveDiConteinerContext(
     useContext(DiConteinerContext)
-  ).resolve("plannedTaskRepo");
-  const fetchPlannedTasks = async (req: PlannedTaskGetRequest) => {
-    const res = await plannedTaskRepo.get(req);
+  ).resolve("taskRepo");
+  const fetchTasks = async (req: TaskGetRequest) => {
+    const res = await taskRepo.get(req);
     if (axios.isAxiosError(res)) {
       if (
         (res as BaseResponse).status !== 200 &&
@@ -50,7 +50,7 @@ export const PlannedTaskSectionParent = () => {
     const today = new Date();
 
     /* todayTasks  */
-    const reqTodayTasks = new PlannedTaskGetRequest(
+    const reqTodayTasks = new TaskGetRequest(
       0,
       10,
       new Date(
@@ -75,7 +75,7 @@ export const PlannedTaskSectionParent = () => {
       )
     );
     /* afterTommorowTask */
-    const reqAfterTommorowTask = new PlannedTaskGetRequest(
+    const reqAfterTommorowTask = new TaskGetRequest(
       0,
       10,
       undefined,
@@ -92,27 +92,27 @@ export const PlannedTaskSectionParent = () => {
     );
 
     const copySections: Section[] = [];
-    fetchPlannedTasks(reqTodayTasks).then((x) => {
-      const data: PlannedTask[] = (x as PlannedTaskGetResponse).data;
+    fetchTasks(reqTodayTasks).then((x) => {
+      const data: Task[] = (x as TaskGetResponse).data;
       copySections.push({
         id: "todayTasks",
         title: "📝今日やること",
-        plannedTasks: data,
+        tasks: data,
       });
-      fetchPlannedTasks(reqAfterTommorowTask)
+      fetchTasks(reqAfterTommorowTask)
         .then((x) => {
-          const data: PlannedTask[] = (x as PlannedTaskGetResponse).data;
+          const data: Task[] = (x as TaskGetResponse).data;
           copySections.push({
             id: "afterTommorowTask",
             title: "🚀今後やること",
-            plannedTasks: data,
+            tasks: data,
           });
         })
         .finally(() => setSections(copySections));
     });
   }, []);
 
-  return <>{sections && <PlannedTaskSection initialSections={sections} />}</>;
+  return <>{sections && <TaskSection initialSections={sections} />}</>;
 };
 
-export default PlannedTaskSectionParent;
+export default TaskSectionParent;

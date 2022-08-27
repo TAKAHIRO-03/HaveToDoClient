@@ -8,7 +8,7 @@ import {
   CommonResponse,
 } from "./base/BaseResponse";
 
-export class PlannedTaskPostRequest extends BaseRequest {
+export class TaskPostRequest extends BaseRequest {
   public readonly username: string;
   public readonly confirmUsername: string;
   public readonly password: string;
@@ -31,7 +31,7 @@ export class PlannedTaskPostRequest extends BaseRequest {
   }
 }
 
-export class PlannedTaskGetRequest extends BaseRequest {
+export class TaskGetRequest extends BaseRequest {
   public readonly page: number;
   public readonly size: number;
   public readonly startTime: Date | null | undefined;
@@ -51,7 +51,7 @@ export class PlannedTaskGetRequest extends BaseRequest {
   }
 }
 
-export type PlannedTask = {
+export type Task = {
   id: number;
   accountId: number;
   title: string;
@@ -62,20 +62,20 @@ export type PlannedTask = {
   isRepeat: boolean;
 };
 
-export class PlannedTaskGetResponse extends BaseResponse {
-  public readonly data: PlannedTask[];
+export class TaskGetResponse extends BaseResponse {
+  public readonly data: Task[];
   constructor(headers: AxiosResponseHeaders, status: number, data: any) {
     super(headers, status, null);
-    this.data = data ? (data as PlannedTask[]) : [];
+    this.data = data ? (data as Task[]) : [];
   }
 }
 
-export class PlannedTaskRepository extends BaseRepository {
+export class TaskRepository extends BaseRepository {
   public async post(
-    req: PlannedTaskPostRequest
+    req: TaskPostRequest
   ): Promise<BaseResponse | BaseErrorResponse> {
     const res = await axios
-      .post(this.baseUrl! + "/api/v1.0/plannedTasks", JSON.stringify(req), {
+      .post(this.baseUrl! + "/api/v1.0/tasks", JSON.stringify(req), {
         headers: {
           "Content-Type": "application/json",
         },
@@ -94,10 +94,10 @@ export class PlannedTaskRepository extends BaseRepository {
     return new CommonResponse(res);
   }
   public async get(
-    req: PlannedTaskGetRequest
+    req: TaskGetRequest
   ): Promise<BaseResponse | BaseErrorResponse> {
     const res = await axios
-      .get(this.baseUrl! + "/api/v1.0/plannedTasks", {
+      .get(this.baseUrl! + "/api/v1.0/tasks", {
         params: {
           page: req.page,
           size: req.size,
@@ -116,7 +116,7 @@ export class PlannedTaskRepository extends BaseRepository {
       return new CommonErrorResponse(res);
     }
 
-    return new PlannedTaskGetResponse(res.headers, res.status, res.data);
+    return new TaskGetResponse(res.headers, res.status, res.data);
   }
   public patch(args: unknown): CommonResponse {
     throw new Error("Method not implemented.");
