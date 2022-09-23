@@ -1,14 +1,20 @@
 import { BaseRequest } from "./BaseRequest";
 import { BaseErrorResponse, BaseResponse } from "./BaseResponse";
+import axios, { Axios } from 'axios'
+
+axios.defaults.headers.common['Content-Type'] = 'application/json';
 
 export abstract class BaseRepository {
-  protected readonly baseUrl: string | undefined;
+  protected readonly restClient: Axios;
 
   constructor() {
-    this.baseUrl = import.meta.env.VITE_API_URL;
-    if (this.baseUrl === null || this.baseUrl === undefined) {
+    const baseUrl = import.meta.env.VITE_API_URL;
+    if (!baseUrl) {
       throw new Error('baseUrl is "null" or "undefindned"');
     }
+    this.restClient = axios.create({
+      baseURL: baseUrl,
+    });
   }
 
   abstract post(req: BaseRequest): Promise<BaseResponse | BaseErrorResponse>;

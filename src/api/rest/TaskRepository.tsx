@@ -74,8 +74,8 @@ export class TaskRepository extends BaseRepository {
   public async post(
     req: TaskPostRequest
   ): Promise<BaseResponse | BaseErrorResponse> {
-    const res = await axios
-      .post(this.baseUrl! + "/api/v1.0/tasks", JSON.stringify(req), {
+    const res = await this.restClient
+      .post("/api/v1.0/tasks", JSON.stringify(req), {
         headers: {
           "Content-Type": "application/json",
         },
@@ -96,8 +96,8 @@ export class TaskRepository extends BaseRepository {
   public async get(
     req: TaskGetRequest
   ): Promise<BaseResponse | BaseErrorResponse> {
-    const res = await axios
-      .get(this.baseUrl! + "/api/v1.0/tasks", {
+    const res = await this.restClient
+      .get("/api/v1.0/tasks", {
         params: {
           page: req.page,
           size: req.size,

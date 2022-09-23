@@ -23,8 +23,8 @@ export class LoginRepository extends BaseRepository {
   public async post(
     req: LoginRequest
   ): Promise<BaseResponse | BaseErrorResponse> {
-    const res = await axios
-      .post(this.baseUrl! + "/api/v1.0/login", JSON.stringify(req), {
+    const res = await this.restClient
+      .post("/api/v1.0/login", JSON.stringify(req), {
         headers: {
           "Content-Type": "application/json",
         },

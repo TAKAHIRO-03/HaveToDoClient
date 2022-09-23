@@ -35,8 +35,8 @@ export class AccountRepository extends BaseRepository {
   public async post(
     req: AccountRequest
   ): Promise<BaseResponse | BaseErrorResponse> {
-    const res = await axios
-      .post(this.baseUrl! + "/api/v1.0/accounts", JSON.stringify(req), {
+    const res = await this.restClient
+      .post("/api/v1.0/accounts", JSON.stringify(req), {
         headers: {
           "Content-Type": "application/json",
         },
