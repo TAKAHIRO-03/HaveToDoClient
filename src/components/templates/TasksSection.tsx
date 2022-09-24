@@ -6,15 +6,16 @@ import {
   Draggable,
 } from "@hello-pangea/dnd";
 import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { Card } from "../parts/Card";
-import "./css/TaskSection.css";
-import { Section } from "./TaskSectionParent";
+import "./css/TasksSection.css";
+import { Section } from "./TasksSectionParent";
 
-type TaskSectionProps = {
+type TasksSectionProps = {
   initialSections: Section[];
 };
 
-export const TaskSection = (props: TaskSectionProps) => {
+export const TasksSection = (props: TasksSectionProps) => {
   const initialSections = props.initialSections;
 
   // define useState
@@ -91,19 +92,22 @@ export const TaskSection = (props: TaskSectionProps) => {
 
   return (
     <DragDropContext onDragEnd={onDragEnd}>
-      <main className="planned-task">
+      <main className="tasks">
         {sections.map((section) => (
           <Droppable key={section.id} droppableId={section.id}>
             {(provided: DroppableProvided) => (
               <div
-                className="planned-task-section"
+                className="tasks-section"
                 ref={provided.innerRef}
                 {...provided.droppableProps}
               >
-                <div className="planned-task-section-title">
-                  {section.title}
+                <div className="tasks-section-title">
+                  <span>{section.title}</span>
+                  <span className="tasks-section-title-plus">
+                    <Link to="/tasks/create"><i className="fa-solid fa-plus fa-xl"></i></Link>
+                  </span>
                 </div>
-                <div className="planned-task-section-content">
+                <div className="tasks-section-content">
                   {section.tasks.map((task, index) => (
                     <Draggable
                       draggableId={String(task.id)}
@@ -139,4 +143,4 @@ export const TaskSection = (props: TaskSectionProps) => {
   );
 };
 
-export default TaskSection;
+export default TasksSection;

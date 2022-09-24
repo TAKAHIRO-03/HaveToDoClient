@@ -1,20 +1,20 @@
-import TaskNavbar from "../parts/TaskNavbar";
+import TasksNavbar from "../parts/TasksNavbar";
 import LogoNavbar from "../parts/LogoNavbar";
 import Footer from "../templates/Footer";
 import Header from "../templates/Header";
-import TaskSectionParent from "../templates/TaskSectionParent";
+import TasksSectionParent from "../templates/TasksSectionParent";
 
-const TaskView = () => {
+const TasksView = () => {
   return (
     <>
       <Header>
-        <TaskNavbar />
+        <TasksNavbar />
         <LogoNavbar />
       </Header>
-      <TaskSectionParent />
+      <TasksSectionParent />
       <Footer />
     </>
   );
 };
 
-export default TaskView;
+export default TasksView;

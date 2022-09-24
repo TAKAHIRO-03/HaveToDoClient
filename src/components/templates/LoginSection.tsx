@@ -46,7 +46,7 @@ const LoginSection = () => {
       });
     });
     setDialogConfig(undefined);
-    navigate("/task");
+    navigate("/tasks");
   };
 
   const loginRepo: LoginRepository = resolveDiConteinerContext(

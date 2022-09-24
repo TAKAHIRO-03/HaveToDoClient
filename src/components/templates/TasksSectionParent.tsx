@@ -1,5 +1,4 @@
 import { useContext, useEffect, useState } from "react";
-import "./css/TaskSection.css";
 import {
   Task,
   TaskGetRequest,
@@ -11,7 +10,7 @@ import { resolveDiConteinerContext } from "../../di/DependencyRegistrar";
 import { BaseResponse } from "../../api/rest/base/BaseResponse";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import TaskSection from "./TaskSection";
+import TaskSection from "./TasksSection";
 
 export type Section = {
   id: "todayTasks" | "afterTommorowTask";
@@ -20,10 +19,10 @@ export type Section = {
 };
 
 /**
- * "TaskSectionParent" passes initial data to the child.
+ * "TasksSectionParent" passes initial data to the child.
  * Child is "TaskSection"
  */
-export const TaskSectionParent = () => {
+export const TasksSectionParent = () => {
   const [sections, setSections] = useState<Section[]>();
 
   // fetch initial planned task from server
@@ -115,4 +114,4 @@ export const TaskSectionParent = () => {
   return <>{sections && <TaskSection initialSections={sections} />}</>;
 };
 
-export default TaskSectionParent;
+export default TasksSectionParent;

@@ -3,7 +3,7 @@ import { slide as Menu } from "react-burger-menu";
 import { Link } from "react-router-dom";
 import "./css/TaskNavbar.css";
 
-const TaskNavbar = () => {
+const TasksNavbar = () => {
   return (
     <Menu right>
       <Link to="/">HaveTodoとは</Link>
@@ -20,4 +20,4 @@ const TaskNavbar = () => {
   );
 };
 
-export default TaskNavbar;
+export default TasksNavbar;

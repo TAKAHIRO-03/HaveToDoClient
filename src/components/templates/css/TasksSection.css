@@ -1,4 +1,4 @@
-.planned-task {
+.tasks {
   color: #e4e4e4;
   display: flex;
   align-items: flex-start;
@@ -6,26 +6,26 @@
   flex-wrap: wrap;
 }
 
-.planned-task-section {
-  overflow:scroll;
+.tasks-section {
+  overflow: scroll;
   height: 70vh;
   width: 400px;
   /* border: 1px solid white; */
   background: rgb(30, 25, 31);
-  background: linear-gradient(
-    126deg,
-    rgba(30, 25, 31, 1) 0%,
-    rgba(51, 45, 54, 1) 96%
-  );
+  background: linear-gradient(126deg,
+      rgba(30, 25, 31, 1) 0%,
+      rgba(51, 45, 54, 1) 96%);
   padding: 10px;
   border-radius: 10px;
   margin-left: 10px;
 }
 
-.planned-task-section-title {
+.tasks-section-title {
   font-size: 1.2rem;
   font-weight: 700;
   margin: 10px 0 20px;
+  position: relative;
+  color: white;
 }
 
 .card {
@@ -34,4 +34,17 @@
   background: linear-gradient(126deg, rgb(79, 73, 79) 0%, rgb(68, 64, 69) 96%);
   border-radius: 10px;
   margin-top: 10px;
+}
+
+.tasks-section-title-plus {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 1;
+  bottom: 0;
+  color: white;
+}
+
+.tasks-section-title-plus:hover {
+  opacity: 0.5;
 }
